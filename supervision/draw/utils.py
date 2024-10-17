@@ -63,6 +63,46 @@ def draw_rectangle(
     return scene
 
 
+def draw_rectangle_3D(
+    scene: np.ndarray, rect: Rect, color: Color, thickness: int = 2
+) -> np.ndarray:
+    """
+    Draws a cuboid by connecting two rectangles.
+    
+    Args:
+        image: The image on which to draw.
+        rect1: A list of four points (x, y) defining the first rectangle.
+        rect2: A list of four points (x, y) defining the second rectangle.
+        color: The color of the cuboid lines (default is green).
+        thickness: The thickness of the lines (default is 2).
+
+    Returns:
+        The image with the cuboid drawn on it.
+    """
+    rec1 = cv2.rectangle(
+        scene,
+        rect.top_left.as_xy_int_tuple(),
+        rect.bottom_right.as_xy_int_tuple(),
+        color.as_bgr(),
+        -1,
+    )
+    tlx,tly = rect.top_left.as_xy_int_tuple()
+    brx, bry = rect.bottom_right.as_xy_int_tuple()
+
+    rec2 = cv2.rectangle(
+        scene, 
+        (tlx+10, tly+10),
+        (brx+10, bry+10),
+        color.as_bgr(),
+        -1,
+    )
+    
+    # Connect corresponding points of the rectangles
+    for p1, p2 in zip(rec1, rec2):
+        cv2.line(scene, tuple(p1), tuple(p2), color, thickness)
+    
+    return scene
+
 def draw_filled_rectangle(
     scene: np.ndarray, rect: Rect, color: Color = Color.ROBOFLOW, opacity: float = 1
 ) -> np.ndarray:
