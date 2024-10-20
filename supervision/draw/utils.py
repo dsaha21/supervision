@@ -64,7 +64,7 @@ def draw_rectangle(
 
 
 def draw_rectangle_3D(
-    scene: np.ndarray, rect: Rect, color: Color, thickness: int = 2
+    scene: np.ndarray, pt1, pt2, color: Color, thickness : int
 ) -> np.ndarray:
     """
     Draws a cuboid by connecting two rectangles.
@@ -81,18 +81,15 @@ def draw_rectangle_3D(
     """
     rec1 = cv2.rectangle(
         scene,
-        rect.top_left.as_xy_int_tuple(),
-        rect.bottom_right.as_xy_int_tuple(),
+        pt1,
+        pt2,
         color.as_bgr(),
         -1,
     )
-    tlx,tly = rect.top_left.as_xy_int_tuple()
-    brx, bry = rect.bottom_right.as_xy_int_tuple()
-
     rec2 = cv2.rectangle(
         scene, 
-        (tlx+10, tly+10),
-        (brx+10, bry+10),
+        (pt1[0]+10, pt1[1]+10),
+        (pt2[0]+10, pt2[1]+10),
         color.as_bgr(),
         -1,
     )
