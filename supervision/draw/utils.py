@@ -67,7 +67,7 @@ def draw_rectangle_3D(
     scene: np.ndarray, pt1, pt2, color: Color, thickness : int
 ) -> np.ndarray:
     """
-    Draws a cuboid by connecting two rectangles.
+    Draws a cuboid by connecting two rectangles. Req for annotators class.
     
     Args:
         image: The image on which to draw.
